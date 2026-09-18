@@ -40,17 +40,20 @@ Before running:  pip install -r requirements.txt
 # you need a calculation this file cannot get by calling the package, the
 # calculation belongs in sales_pipeline/transform.py.
 
+import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from sales_pipeline import (
-    get_raw_sales_data,
-    clean_sales_data,
-    summarize_by_day,
     calculate_total_revenue,
+    clean_sales_data,
     find_top_entry,
+    get_raw_sales_data,
     print_day_table,
+    summarize_by_day,
 )
 
-# Handle optional seed argument
 seed = None
 if len(sys.argv) > 1 and sys.argv[1].strip() != "":
     seed = int(sys.argv[1])
@@ -58,31 +61,17 @@ if len(sys.argv) > 1 and sys.argv[1].strip() != "":
 print("=== OPERATIONS: Sales by Day ===")
 print()
 
-# Extract and transform data
 raw_data = get_raw_sales_data(seed)
 clean_data = clean_sales_data(raw_data)
-
-# Summarize by day and calculate totals
 daily_summary = summarize_by_day(clean_data)
 total_revenue = calculate_total_revenue(clean_data)
 
-# Display daily sales table
 print_day_table(daily_summary)
 print()
 
-# Find busiest days
 busiest_by_revenue = find_top_entry(daily_summary, field="revenue")
 busiest_by_units = find_top_entry(daily_summary, field="units_sold")
 
-# Print summary information with formatting
 print(f"Total Revenue:          ${total_revenue:,.2f}")
 print(f"Busiest day by revenue: {busiest_by_revenue['date']} (${busiest_by_revenue['revenue']:,.2f})")
 print(f"Busiest day by units:   {busiest_by_units['date']} ({busiest_by_units['units_sold']} units)")
-How to use this:
-
-Copy this into your code/main_daily_report.py file.
-Run it in the terminal with and without a seed to confirm output correctness.
-Run your integration tests to verify your whole package and reports.
-Would you like tips on anything specific in this code, or help adjusting it further?
-
-Course sources used

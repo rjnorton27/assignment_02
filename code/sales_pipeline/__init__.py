@@ -62,30 +62,26 @@ HOW TO BUILD IT
     modules instead.
 """
 
-# --- The public API -------------------------------------------------------------
-#
-# One group per module. The leading dot on each is what makes these *relative*
-# imports — "from the display module that sits beside this file", not "from some
-# package called display installed on this machine".
+"""Public package API for the sales pipeline."""
 
-# TODO: import the public functions here, using relative imports.
-#       One group per module — .extract, then .transform, then .display.
-#       Start with only the functions you have actually written (see note 2 above),
-#       and come back to add the rest as you go.
+from .display import print_day_table, print_item_table, print_sales_table
+from .extract import get_raw_sales_data
+from .transform import (
+    calculate_total_revenue,
+    clean_sales_data,
+    find_top_entry,
+    summarize_by_day,
+    summarize_by_item,
+)
 
-
-# `__all__` is a list of strings naming the public API. It does two jobs.
-#
-# The mechanical one: it controls what `from sales_pipeline import *` brings in.
-#
-# The one that actually matters: it is documentation with teeth. The imports above
-# are something Python *needs*; this list is you stating plainly which names are
-# features. Anyone can read it and know what the package does without opening a
-# single module.
-#
-# Keep it in step with the imports above. A name here that is not imported above is
-# a broken promise; a name imported above but missing here is a feature nobody can
-# find.
 __all__ = [
-    # TODO: list every name you imported above, in the same order.
+    "get_raw_sales_data",
+    "clean_sales_data",
+    "calculate_total_revenue",
+    "summarize_by_item",
+    "summarize_by_day",
+    "find_top_entry",
+    "print_sales_table",
+    "print_item_table",
+    "print_day_table",
 ]
