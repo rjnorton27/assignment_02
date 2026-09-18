@@ -28,8 +28,7 @@ import sys
 #
 # `main_finance_report.py` is your worked example for anything structural.
 
-# TODO: import what this report needs from the package.
-
+# TODO:
 import sys
 from sales_pipeline import (
     get_raw_sales_data,
@@ -41,21 +40,18 @@ from sales_pipeline import (
 
 # TODO: handle the optional dataset seed. This is the same three lines the Finance
 #       report has — read them there, then write them here yourself.
-
 seed = None
 if len(sys.argv) > 1 and sys.argv[1].strip() != "":
     seed = int(sys.argv[1])
 
 # TODO: print the header, exactly:   === MARKETING: Revenue by Item ===
 #       then a blank line.
-
 print("=== MARKETING: Sales by Product ===")
 print()
 
 
 # 1. Extract — the same source Finance uses, called the same way.
 # TODO
-
 raw_data = get_raw_sales_data(seed)
 clean_data = clean_sales_data(raw_data)
 
@@ -63,7 +59,6 @@ clean_data = clean_sales_data(raw_data)
 #    best entry twice: once by "revenue", once by "units_sold". They are usually
 #    different products, which is the whole reason Marketing asked.
 # TODO
-
 item_summary = summarize_by_item(clean_data)
 
 print_item_table(item_summary)
