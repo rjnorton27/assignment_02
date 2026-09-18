@@ -48,19 +48,36 @@ if len(sys.argv) > 1 and sys.argv[1].strip() != "":
 #
 #       from sales_pipeline import (...)
 
+import sys
+from sales_pipeline import (
+    get_raw_sales_data,
+    clean_sales_data,
+    calculate_total_revenue,
+    print_sales_table,
+)
+
 
 # TODO: print the header, exactly:   === FINANCE: Daily Sales Detail ===
 #       then print() on its own for a blank line.
 
+seed = None
+if len(sys.argv) > 1 and sys.argv[1].strip() != "":
+    seed = int(sys.argv[1])
+
+print("=== FINANCE: Daily Sales Detail ===")
+print()
 
 # 1. Extract — get the raw data out of the source system.
 #    TODO: call get_raw_sales_data(seed) and store the result in `raw_data`.
 
+raw_data = get_raw_sales_data(seed)
 
 # 2. Transform — clean it, then total it.
 #    TODO: call clean_sales_data(raw_data) and store it in `clean_data`.
 #    TODO: call calculate_total_revenue(clean_data) and store it in `total_revenue`.
 
+clean_data = clean_sales_data(raw_data)
+total_revenue = calculate_total_revenue(clean_data)
 
 # 3. Load — put it in front of a human.
 #    TODO: call print_sales_table(clean_data).
@@ -72,3 +89,7 @@ if len(sys.argv) > 1 and sys.argv[1].strip() != "":
 #
 #          That line is given because the format spec is worth seeing once. You
 #          will need the same trick in the next two reports.
+
+print_sales_table(clean_data)
+print()
+print(f"Total Pipeline Revenue: ${total_revenue:,.2f}")
